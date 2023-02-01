@@ -24,8 +24,8 @@ class AuthorizationTest {
     @DisplayName("Should successfully login with active registered user")
     void shouldSuccessfulLoginIfRegisteredActiveUser() {
         var registeredUser = getRegisteredUser("active");
-        $("[data-test-id='login'] input").setValue(registeredUser.getLogin());
-        $("[data-id-test='password'] input").setValue(registeredUser.getPassword());
+        $("[data-test-id='login'] input.input__control").setValue(registeredUser.getLogin());
+        $("[data-test-id='password'] input.input__control").setValue(registeredUser.getPassword());
         $("button.button").click();
         $("h2").shouldHave(Condition.exactText("Личный кабинет")).shouldBe((Condition.visible));
     }
@@ -34,11 +34,11 @@ class AuthorizationTest {
     @DisplayName("Should get error message if login with not registered user")
     void shouldGetErrorIfNotRegisteredUser() {
         var NotRegisteredUser= getUser("active");
-        $("[data-id-test='login'] input").setValue(NotRegisteredUser.getLogin());
-        $("[data-id-test='password'] input").setValue(NotRegisteredUser.getPassword());
+        $("[data-test-id='login'] input.input__control").setValue(NotRegisteredUser.getLogin());
+        $("[data-test-id='password'] input.input__control").setValue(NotRegisteredUser.getPassword());
         $("button.button").click();
-        $("[data-id-test='error-notification'] .notification__content")
-                .shouldHave(Condition.exactText("Ошибка! Неверно указан логин или пароль"))
+        $("[data-test-id='error-notification'] .notification__content")
+                .shouldHave(Condition.exactText("Ошибка! " + "Неверно указан логин или пароль"))
                 .shouldBe((Condition.visible));
     }
 
@@ -46,11 +46,11 @@ class AuthorizationTest {
     @DisplayName("Should get error message if login with blocked registered user")
     void shouldGetErrorIfBlockedUser() {
         var blockedUser = getRegisteredUser("blocked");
-        $("[data-id-test='login'] input").setValue(blockedUser.getLogin());
-        $("[data-id-test='password'] input").setValue(blockedUser.getPassword());
+        $("[data-test-id='login'] input.input__control").setValue(blockedUser.getLogin());
+        $("[data-test-id='password'] input.input__control").setValue(blockedUser.getPassword());
         $("button.button").click();
-        $("[data-id-test='error-notification'] .notification__content")
-                .shouldHave(Condition.exactText("Ошибка! Пользователь заблокирован"))
+        $("[data-test-id='error-notification'] .notification__content")
+                .shouldHave(Condition.exactText("Ошибка! " + "Пользователь заблокирован"))
                 .shouldBe((Condition.visible));
 
 
@@ -61,11 +61,11 @@ class AuthorizationTest {
     void shouldGetErrorIfWrongLogin() {
         var registeredUser = getRegisteredUser("active");
         var wrongLogin = getRandomLogin();
-        $("[data-id-test='login'] input").setValue(wrongLogin);
-        $("[data-id-test='password'] input").setValue(registeredUser.getPassword());
+        $("[data-test-id='login'] input.input__control").setValue(wrongLogin);
+        $("[data-test-id='password'] input.input__control").setValue(registeredUser.getPassword());
         $("button.button").click();
-        $("[data-id-test='error-notification'] .notification__content")
-                .shouldHave(Condition.exactText("Ошибка! Неверно указан логин или пароль"))
+        $("[data-test-id='error-notification'] .notification__content")
+                .shouldHave(Condition.exactText("Ошибка! " + "Неверно указан логин или пароль"))
                 .shouldBe((Condition.visible));
 
     }
@@ -75,11 +75,11 @@ class AuthorizationTest {
     void shouldGetErrorIfWrongPassword() {
         var registeredUser = getRegisteredUser("active");
         var wrongPassword = getRandomPassword();
-        $("[data-id-test='login'] input").setValue(registeredUser.getLogin());
-        $("[data-id-test='password'] input").setValue(wrongPassword);
+        $("[data-test-id='login'] input.input__control").setValue(registeredUser.getLogin());
+        $("[data-test-id='password'] input.input__control").setValue(wrongPassword);
         $("button.button").click();
-        $("[data-id-test='error-notification'] .notification__content")
-                .shouldHave(Condition.exactText("Ошибка! Неверно указан логин или пароль"))
+        $("[data-test-id='error-notification'] .notification__content")
+                .shouldHave(Condition.exactText("Ошибка! " + "Неверно указан логин или пароль"))
                 .shouldBe((Condition.visible));
 
     }
